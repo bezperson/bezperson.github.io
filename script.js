@@ -124,7 +124,10 @@ document.querySelectorAll('.contact-form, .ask-form').forEach((form) => {
         mode: 'no-cors',
         body: new FormData(form),
       });
-      showFormStatus(form, '✅ Дякую! Ваше повідомлення надіслано.', true);
+      const okMsg = form.classList.contains('ask-form')
+        ? 'Дякуємо за ваше запитання 🤍 Ми дбайливо розберемо його на одній із найближчих зустрічей.'
+        : 'Дякую, що наважилися написати 💛 Я прочитаю ваше повідомлення й відповім якомога швидше.';
+      showFormStatus(form, okMsg, true);
       form.reset();
     } catch (err) {
       showFormStatus(form, '⚠️ Немає зʼєднання. Спробуйте, будь ласка, трохи пізніше.', false);
