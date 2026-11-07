@@ -125,7 +125,8 @@ img { max-width: 100%; display: block; }
   background: linear-gradient(160deg, var(--cream) 0%, var(--cream-2) 60%, var(--sand) 100%);
   padding: 72px 0 90px;
 }
-.hero-inner { display: grid; grid-template-columns: 1.1fr .9fr; gap: 56px; align-items: center; }
+.hero-inner { display: grid; grid-template-columns: 1fr; gap: 56px; align-items: center; }
+.hero-text { max-width: 760px; }
 .hero-text h1 { font-size: clamp(32px, 5vw, 52px); margin: 0 0 20px; }
 .hero-text .lead { font-size: 19px; color: var(--ink-soft); margin: 0 0 30px; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 28px; }
