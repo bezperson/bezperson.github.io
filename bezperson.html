@@ -115,7 +115,7 @@
         </div>
 
         <div class="group-cta">
-          <a href="[ПОСИЛАННЯ НА TELEGRAM-ГРУПУ]" class="btn btn-primary">Приєднатися до спільноти</a>
+          <a href="https://t.me/+407aLR6EDYAxOTdi" class="btn btn-primary">Приєднатися до спільноти</a>
           <p class="disclaimer">
             Формат відкритої групи підтримки не замінює індивідуальну психотерапію
             чи медичну допомогу.
@@ -195,11 +195,17 @@
         </p>
 
         <!--
-          ФОРМА анонімних запитань через Formspree.
-          Створіть ОКРЕМУ форму на formspree.io і замініть YOUR_QUESTIONS_FORM_ID.
-          (Можна використати й ту саму форму, що й у контактах.)
+          ФОРМА анонімних запитань через FormSubmit.co (безкоштовно, без ліміту, без реєстрації).
+          Замініть [пошта] на свою адресу. Можна вказати ту саму, що й у контактах.
+          Ім'я та контакти тут не збираються — приходить лише текст запитання.
         -->
-        <form class="ask-form" action="https://formspree.io/f/YOUR_QUESTIONS_FORM_ID" method="POST">
+        <form class="ask-form" action="https://formsubmit.co/bezperson.space+qa@gmail.com" method="POST">
+          <!-- Налаштування FormSubmit (приховані поля) -->
+          <input type="hidden" name="_subject" value="Анонімне запитання (БезПерсон)" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_captcha" value="false" />
+          <!-- Пастка для спаму (людина це поле не заповнює) -->
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
           <div class="field">
             <label for="question" class="sr-hidden">Ваше запитання</label>
             <textarea id="question" name="question" rows="4" required

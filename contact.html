@@ -71,12 +71,19 @@
 
         <div class="col-main">
           <!--
-            ФОРМА через Formspree (безкоштовно, без сервера — підходить для GitHub Pages).
-            1) Зареєструйтеся на https://formspree.io
-            2) Створіть форму і скопіюйте її ID
-            3) Замініть YOUR_FORM_ID нижче
+            ФОРМА через FormSubmit.co (безкоштовно, без ліміту, без реєстрації).
+            1) Замініть [пошта] нижче на свою електронну адресу (двічі: в action).
+            2) Після першого надсилання FormSubmit надішле лист — підтвердіть один раз.
+            3) (Опційно) Щоб приховати пошту від спам-ботів: активуйте форму, скопіюйте
+               ваш «псевдонім» на formsubmit.co і замініть адресу на нього.
           -->
-          <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <form class="contact-form" action="https://formsubmit.co/bezperson.space+contact@gmail.com" method="POST">
+            <!-- Налаштування FormSubmit (приховані поля) -->
+            <input type="hidden" name="_subject" value="Нове повідомлення з сайту БезПерсон" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_captcha" value="false" />
+            <!-- Пастка для спаму (людина це поле не заповнює) -->
+            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
             <div class="field">
               <label for="name">Ваше ім'я або нікнейм</label>
               <input type="text" id="name" name="name" required placeholder="Як до вас звертатися?" />
