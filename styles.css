@@ -35,7 +35,12 @@
 /* ---------- Базове ---------- */
 * { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+  -webkit-text-size-adjust: 100%; /* без «роздування» шрифту на iOS */
+  text-size-adjust: 100%;
+}
 
 body {
   margin: 0;
@@ -45,6 +50,7 @@ body {
   line-height: 1.7;
   font-size: 17px;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden; /* страховка від горизонтального скролу */
 }
 
 h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; line-height: 1.2; color: var(--ink); }
@@ -485,17 +491,49 @@ img { max-width: 100%; display: block; }
 
 @media (max-width: 680px) {
   body { font-size: 16px; }
-  .section { padding: 60px 0; }
+  .section { padding: 56px 0; }
+
+  /* Герой — компактніший і без зайвого простору зверху */
+  .hero { padding: 56px 0; }
+  .hero-text h1 { font-size: clamp(27px, 8vw, 36px); line-height: 1.16; margin-bottom: 18px; }
+  .hero-text .lead { font-size: 17px; margin-bottom: 26px; }
+  .hero-badges { gap: 10px 18px; font-size: 14px; }
+
+  /* Заголовки й підзаголовки секцій — трохи менші */
+  .section-title { font-size: clamp(25px, 6.8vw, 32px); }
+  .section-lead { font-size: 16px; margin-bottom: 32px; }
+
+  /* Трохи щільніші відступи в картках */
+  .card { padding: 24px 22px; }
+  .service-card { padding: 28px 22px; }
+  .contact-form, .ask-form { padding: 24px 20px; }
+  .rules-list li { padding: 16px 18px; }
+  .faq-list details { padding: 2px 20px; }
 
   .cards-2, .cards-3 { grid-template-columns: 1fr; }
   .facts { grid-template-columns: 1fr; }
 
   /* Розклад — картка у стовпчик */
-  .schedule-card { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 14px; }
-  .schedule-date { flex-direction: row; gap: 8px; padding: 8px 16px; }
+  .schedule-card { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 14px; padding: 20px; }
+  .schedule-date { flex-direction: row; align-items: baseline; gap: 8px; padding: 8px 16px; }
+  .schedule-num { font-size: 26px; }
   .schedule-card .btn { width: 100%; }
-  .breathe-stage { height: 280px; }
-  .cert-grid { grid-template-columns: 1fr 1fr; }
-  .footer-inner { grid-template-columns: 1fr; }
+
+  /* Дихальна вправа */
+  .breathe-stage { height: 260px; }
+  .breathe-circle { width: 130px; height: 130px; }
+
+  .cert-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+  .footer-inner { grid-template-columns: 1fr; text-align: center; }
+  .footer-nav { justify-content: center; }
   .hero-actions .btn { flex: 1 1 auto; }
+}
+
+/* Дуже вузькі екрани (малі телефони) */
+@media (max-width: 380px) {
+  .container { padding: 0 18px; }
+  .hero-text h1 { font-size: 25px; }
+  .chips li { padding: 9px 16px; font-size: 14px; }
+  .btn { padding: 13px 22px; font-size: 15px; }
+  .cert-grid { grid-template-columns: 1fr; }
 }
