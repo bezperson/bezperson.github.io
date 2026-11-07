@@ -89,7 +89,7 @@ document.querySelectorAll('.section').forEach((el) => {
   btn.addEventListener('click', () => (running ? stop() : start()));
 })();
 
-// 5) Надсилання форм без переходу на нову сторінку (AJAX через FormSubmit)
+// 5) Надсилання форм без переходу на нову сторінку (Google Форми у фоні)
 function showFormStatus(form, message, ok) {
   let el = form.querySelector('.form-status');
   if (!el) {
@@ -107,8 +107,8 @@ function showFormStatus(form, message, ok) {
 document.querySelectorAll('.contact-form, .ask-form').forEach((form) => {
   form.addEventListener('submit', async (e) => {
     const action = form.getAttribute('action') || '';
-    // Лишаємо стандартну поведінку, якщо це не FormSubmit (напр. заглушка)
-    if (!action.includes('formsubmit.co') || action.includes('[')) return;
+    // Обробляємо лише Google Форми; інше лишаємо на стандартну поведінку
+    if (!action.includes('docs.google.com')) return;
 
     e.preventDefault();
 
@@ -116,22 +116,16 @@ document.querySelectorAll('.contact-form, .ask-form').forEach((form) => {
     const originalText = btn ? btn.textContent : '';
     if (btn) { btn.disabled = true; btn.textContent = 'Надсилаємо…'; }
 
-    // AJAX-ендпойнт FormSubmit (повертає JSON замість переходу на сторінку)
-    const endpoint = action.replace('formsubmit.co/', 'formsubmit.co/ajax/');
-
     try {
-      const res = await fetch(endpoint, {
+      // Google Форми не віддають відповідь у браузер (CORS), тому mode:'no-cors':
+      // запит проходить, але прочитати результат не можна — показуємо успіх оптимістично.
+      await fetch(action, {
         method: 'POST',
-        headers: { Accept: 'application/json' },
+        mode: 'no-cors',
         body: new FormData(form),
       });
-      const data = await res.json().catch(() => ({}));
-      if (res.ok && (data.success === 'true' || data.success === true)) {
-        showFormStatus(form, '✅ Дякую! Ваше повідомлення надіслано.', true);
-        form.reset();
-      } else {
-        showFormStatus(form, '⚠️ Не вдалося надіслати. Спробуйте ще раз або напишіть у Telegram.', false);
-      }
+      showFormStatus(form, '✅ Дякую! Ваше повідомлення надіслано.', true);
+      form.reset();
     } catch (err) {
       showFormStatus(form, '⚠️ Немає зʼєднання. Спробуйте, будь ласка, трохи пізніше.', false);
     } finally {

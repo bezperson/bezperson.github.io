@@ -195,25 +195,22 @@
         </p>
 
         <!--
-          ФОРМА анонімних запитань через FormSubmit.co (безкоштовно, без ліміту, без реєстрації).
-          Замініть [пошта] на свою адресу. Можна вказати ту саму, що й у контактах.
-          Ім'я та контакти тут не збираються — приходить лише текст запитання.
+          ФОРМА анонімних запитань через Google Форми (окрема форма, без збору email).
+          Надходить лише текст запитання; зберігається у вашій Google-таблиці.
+          action + entry.XXXXX беруться з коду вашої Google-форми viewform.
         -->
-        <form class="ask-form" action="https://formsubmit.co/bb9f0be61c1208003b60d025f6a31b90" method="POST">
-          <!-- Налаштування FormSubmit (приховані поля) -->
-          <input type="hidden" name="_subject" value="Анонімне запитання (БезПерсон)" />
-          <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_captcha" value="false" />
-          <!-- Пастка для спаму (людина це поле не заповнює) -->
-          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+        <form class="ask-form"
+              action="https://docs.google.com/forms/d/e/1FAIpQLSew5pSyp5YuOc5NTOMn7NYCBzm3lfexq_xzK0DJ0XuSGFQwPg/formResponse"
+              method="POST">
           <div class="field">
             <label for="question" class="sr-hidden">Ваше запитання</label>
-            <textarea id="question" name="question" rows="4" required
+            <textarea id="question" name="entry.537454051" rows="4" required
               placeholder="Напишіть своє запитання тут… Воно повністю анонімне."></textarea>
           </div>
           <button type="submit" class="btn btn-primary btn-block">Надіслати анонімно</button>
           <p class="form-note center">
-            🔒 Ми не збираємо жодних даних про вас. Запитання надходить без імені та контактів.
+            🔒 Ми не питаємо ваше ім'я чи контакти — надходить лише текст запитання
+            (через Google Форми).
           </p>
         </form>
       </div>
@@ -238,6 +235,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=3"></script>
+  <script src="script.js?v=4"></script>
 </body>
 </html>

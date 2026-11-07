@@ -71,35 +71,32 @@
 
         <div class="col-main">
           <!--
-            ФОРМА через FormSubmit.co (безкоштовно, без ліміту, без реєстрації).
-            1) Замініть [пошта] нижче на свою електронну адресу (двічі: в action).
-            2) Після першого надсилання FormSubmit надішле лист — підтвердіть один раз.
-            3) (Опційно) Щоб приховати пошту від спам-ботів: активуйте форму, скопіюйте
-               ваш «псевдонім» на formsubmit.co і замініть адресу на нього.
+            ФОРМА через Google Форми. Дані надсилаються у приховану Google-форму
+            й зберігаються у вашій Google-таблиці (ваш власний акаунт, без сторонніх сервісів).
+            Поля input/textarea мають name="entry.XXXXX" — це ID полів Google-форми.
+            Щоб під'єднати іншу форму: створіть її й замініть action + entry.XXXXX
+            (ID полів беруться з коду форми viewform).
           -->
-          <form class="contact-form" action="https://formsubmit.co/6720dec76b65e66f9106ddefd38d5e15" method="POST">
-            <!-- Налаштування FormSubmit (приховані поля) -->
-            <input type="hidden" name="_subject" value="Нове повідомлення з сайту БезПерсон" />
-            <input type="hidden" name="_template" value="table" />
-            <input type="hidden" name="_captcha" value="false" />
-            <!-- Пастка для спаму (людина це поле не заповнює) -->
-            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+          <form class="contact-form"
+                action="https://docs.google.com/forms/d/e/1FAIpQLSdKSkQNKRELGkvWAn1lOIGp48pFB-Fa8pmV_NgMHeIX7UeohQ/formResponse"
+                method="POST">
             <div class="field">
               <label for="name">Ваше ім'я або нікнейм</label>
-              <input type="text" id="name" name="name" required placeholder="Як до вас звертатися?" />
+              <input type="text" id="name" name="entry.569134283" required placeholder="Як до вас звертатися?" />
             </div>
             <div class="field">
               <label for="email">Email або Telegram для відповіді</label>
-              <input type="text" id="email" name="contact" required placeholder="email або @username" />
+              <input type="text" id="email" name="entry.430281915" required placeholder="email або @username" />
             </div>
             <div class="field">
               <label for="message">Повідомлення</label>
-              <textarea id="message" name="message" rows="4" required placeholder="Коротко про те, що вас турбує або з чим хочете звернутися"></textarea>
+              <textarea id="message" name="entry.1695113286" rows="4" required placeholder="Коротко про те, що вас турбує або з чим хочете звернутися"></textarea>
             </div>
             <button type="submit" class="btn btn-primary btn-block">Надіслати</button>
             <p class="form-note">
               Натискаючи «Надіслати», ви погоджуєтесь, що я зв'яжуся з вами у відповідь.
-              Ваші дані не передаються третім особам.
+              Повідомлення надходить через Google Форми й зберігається лише в моєму
+              Google-акаунті — я використовую його тільки щоб відповісти вам.
             </p>
           </form>
         </div>
@@ -163,6 +160,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=3"></script>
+  <script src="script.js?v=4"></script>
 </body>
 </html>
