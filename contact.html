@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css?v=4" />
+  <link rel="stylesheet" href="styles.css?v=5" />
 </head>
 <body>
 
@@ -38,7 +38,7 @@
         <li><a href="about.html">Про мене</a></li>
         <li><a href="bezperson.html">БезПерсон</a></li>
         <li><a href="contact.html" aria-current="page">Контакти</a></li>
-        <li><a href="contact.html" class="nav-cta" aria-current="page">Записатися</a></li>
+        <li><a href="contact.html#booking" class="nav-cta" aria-current="page">Записатися</a></li>
       </ul>
     </nav>
   </header>
@@ -50,7 +50,37 @@
       <div class="container">
         <p class="eyebrow center">Перший крок часто найважчий — і я поруч</p>
         <h1>Зв'язатися зі мною</h1>
-        <p class="lead">Напишіть мені — і ми оберемо зручний час для вашої консультації.</p>
+        <p class="lead">Оберіть вільний час у календарі або просто напишіть мені — і ми домовимося про зустріч.</p>
+      </div>
+    </section>
+
+    <!-- ===================== ЗАПИС НА КОНСУЛЬТАЦІЮ ===================== -->
+    <section id="booking" class="section section-booking">
+      <div class="container">
+        <p class="eyebrow center">Запис онлайн</p>
+        <h2 class="section-title center">Оберіть зручний час</h2>
+        <p class="section-lead center">
+          Виберіть вільний слот у календарі — після запису ви отримаєте підтвердження
+          з посиланням на зустріч. Якщо зручніше спершу поставити запитання —
+          напишіть мені у формі нижче.
+        </p>
+
+        <div class="booking-embed">
+          <!-- Google Calendar Appointment Scheduling -->
+          <iframe
+            src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1slR8lKe7bRzQHl7OuePwb4q7yxPWHPh4qNjnKCCncMbTGetJYChIh3nOpsaHHkqXjP_4AXoTC?gv=true"
+            title="Запис на індивідуальну консультацію"
+            style="border: 0"
+            width="100%"
+            height="650"
+            frameborder="0"
+            loading="lazy"></iframe>
+        </div>
+
+        <p class="note center">
+          💛 Консультація платна — 800 грн. Після запису я напишу вам щодо деталей
+          та оплати (передоплата).
+        </p>
       </div>
     </section>
 
@@ -58,9 +88,9 @@
     <section id="contact" class="section section-contact">
       <div class="container two-col">
         <div class="col-side">
-          <h2 class="section-title">Контакти</h2>
+          <h2 class="section-title">Або просто напишіть</h2>
           <p class="section-kicker">
-            Оберіть зручний спосіб зв'язку — я відповім особисто.
+            Ще не готові обирати час? Напишіть мені зручним способом — я відповім особисто.
           </p>
           <ul class="contact-links">
             <li><a href="https://t.me/[username]" target="_blank" rel="noopener">✈️ Telegram</a></li>
