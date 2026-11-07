@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Про мене — Рімма, психологиня</title>
+  <meta name="description" content="Про психологиню Рімму: освіта, підхід у роботі, сертифікати та відгуки клієнтів." />
+
+  <meta property="og:title" content="Про мене — Рімма, психологиня" />
+  <meta property="og:description" content="Освіта, підхід, сертифікати та відгуки." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/og-image.jpg" />
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css?v=3" />
+</head>
+<body>
+
+  <!-- ===================== ШАПКА ===================== -->
+  <header class="site-header" id="top">
+    <nav class="nav container">
+      <a href="index.html" class="brand">
+        <span class="brand-name">Рімма</span>
+        <span class="brand-sub">психологиня · БезПерсон</span>
+      </a>
+
+      <button class="nav-toggle" aria-label="Відкрити меню" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Головна</a></li>
+        <li><a href="about.html" aria-current="page">Про мене</a></li>
+        <li><a href="bezperson.html">БезПерсон</a></li>
+        <li><a href="contact.html">Контакти</a></li>
+        <li><a href="contact.html" class="nav-cta">Записатися</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ===================== ЗАГОЛОВОК СТОРІНКИ ===================== -->
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow center">Трохи про те, хто поруч із вами</p>
+        <h1>Про мене</h1>
+        <p class="lead">Дбайливий простір, щирість і повага до вашого особистого темпу.</p>
+      </div>
+    </section>
+
+    <!-- ===================== ПРО МЕНЕ ===================== -->
+    <section id="about" class="section section-about">
+      <div class="container two-col">
+        <div class="col-side">
+          <h2 class="section-title">Хто я</h2>
+          <p class="section-kicker">Психологиня, яка поруч із вами</p>
+        </div>
+        <div class="col-main prose">
+          <p>
+            Вітаю! Я сертифікована клінічна психологиня, магістр психології.
+            У своїй практиці я допомагаю людям долати вигорання, тривожність,
+            життєві кризи та шукати внутрішню опору у складні часи.
+          </p>
+          <p>
+            Для мене психологія — це про повернення до себе справжнього. У роботі з людьми для мене найважливіше
+            створити безпечний, дбайливий простір, де немає місця оцінкам чи засудженню, а є повага до вашого
+            особистого темпу, щирість та глибоке прийняття вашого досвіду.
+          </p>
+          <ul class="facts">
+            <li><strong>Освіта</strong><span>[Університет, спеціальність, рік]</span></li>
+            <li><strong>Напрям</strong><span>[напр.: КПТ, гештальт, схема-терапія]</span></li>
+            <li><strong>Досвід</strong><span>2+ роки практики</span></li>
+            <li><strong>Формат</strong><span>Онлайн (Zoom) · українською</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== СЕРТИФІКАТИ ===================== -->
+    <section id="certificates" class="section section-certificates">
+      <div class="container">
+        <h2 class="section-title center">Освіта та сертифікати</h2>
+        <p class="section-lead center">
+          Моя кваліфікація підтверджена дипломами та сертифікатами. Натисніть, щоб
+          переглянути.
+        </p>
+        <div class="cert-grid">
+          <!-- Повторіть блок для кожного сертифіката. Покладіть файли в assets/certs/ -->
+          <a class="cert-item" href="assets/certs/cert-1.jpg" target="_blank" rel="noopener">
+            <img src="assets/cert-placeholder.svg" alt="Сертифікат 1" loading="lazy" />
+            <span class="cert-caption">[Назва сертифіката / навчання]</span>
+          </a>
+          <a class="cert-item" href="assets/certs/cert-2.jpg" target="_blank" rel="noopener">
+            <img src="assets/cert-placeholder.svg" alt="Сертифікат 2" loading="lazy" />
+            <span class="cert-caption">[Назва сертифіката / навчання]</span>
+          </a>
+          <a class="cert-item" href="assets/certs/cert-3.jpg" target="_blank" rel="noopener">
+            <img src="assets/cert-placeholder.svg" alt="Сертифікат 3" loading="lazy" />
+            <span class="cert-caption">[Назва сертифіката / навчання]</span>
+          </a>
+          <a class="cert-item" href="assets/certs/cert-4.jpg" target="_blank" rel="noopener">
+            <img src="assets/cert-placeholder.svg" alt="Сертифікат 4" loading="lazy" />
+            <span class="cert-caption">[Назва сертифіката / навчання]</span>
+          </a>
+        </div>
+        <p class="note center">
+          Додайте зображення у теку <code>assets/certs/</code> і замініть посилання вище.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== ВІДГУКИ ===================== -->
+    <section id="testimonials" class="section section-testimonials">
+      <div class="container">
+        <h2 class="section-title center">Відгуки</h2>
+        <p class="section-lead center">Анонімно, з дозволу клієнтів.</p>
+        <div class="cards cards-3">
+          <blockquote class="quote">
+            <p>«[Текст відгуку. Наприклад: вперше за довгий час я відчула, що мене чують
+              без осуду. Дякую за безпечний простір.]»</p>
+            <footer>— Учасниця групи</footer>
+          </blockquote>
+          <blockquote class="quote">
+            <p>«[Текст відгуку про індивідуальну роботу.]»</p>
+            <footer>— Клієнт, [місто/анонімно]</footer>
+          </blockquote>
+          <blockquote class="quote">
+            <p>«[Ще один короткий відгук.]»</p>
+            <footer>— Учасник БезПерсон</footer>
+          </blockquote>
+        </div>
+        <div class="group-cta">
+          <a href="contact.html" class="btn btn-primary">Записатися на консультацію</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== ПІДВАЛ ===================== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p class="footer-brand">Рімма</p>
+        <p class="footer-sub">Психологиня · Авторка проєкту БезПерсон</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="index.html">Головна</a>
+        <a href="about.html">Про мене</a>
+        <a href="bezperson.html">БезПерсон</a>
+        <a href="contact.html">Контакти</a>
+      </nav>
+      <p class="footer-copy">© <span id="year"></span> BezPerson. Усі права захищені.</p>
+    </div>
+  </footer>
+
+  <script src="script.js?v=2"></script>
+</body>
+</html>

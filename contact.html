@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Контакти — записатися до психологині Рімми</title>
+  <meta name="description" content="Записатися на індивідуальну консультацію до психологині Рімми. Telegram, email та форма зворотного зв'язку. Поширені запитання." />
+
+  <meta property="og:title" content="Контакти — записатися до психологині Рімми" />
+  <meta property="og:description" content="Записатися на консультацію: Telegram, email, форма зв'язку." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/og-image.jpg" />
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css?v=3" />
+</head>
+<body>
+
+  <!-- ===================== ШАПКА ===================== -->
+  <header class="site-header" id="top">
+    <nav class="nav container">
+      <a href="index.html" class="brand">
+        <span class="brand-name">Рімма</span>
+        <span class="brand-sub">психологиня · БезПерсон</span>
+      </a>
+
+      <button class="nav-toggle" aria-label="Відкрити меню" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Головна</a></li>
+        <li><a href="about.html">Про мене</a></li>
+        <li><a href="bezperson.html">БезПерсон</a></li>
+        <li><a href="contact.html" aria-current="page">Контакти</a></li>
+        <li><a href="contact.html" class="nav-cta" aria-current="page">Записатися</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ===================== ЗАГОЛОВОК СТОРІНКИ ===================== -->
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow center">Перший крок часто найважчий — і я поруч</p>
+        <h1>Зв'язатися зі мною</h1>
+        <p class="lead">Напишіть мені — і ми оберемо зручний час для вашої консультації.</p>
+      </div>
+    </section>
+
+    <!-- ===================== КОНТАКТ ===================== -->
+    <section id="contact" class="section section-contact">
+      <div class="container two-col">
+        <div class="col-side">
+          <h2 class="section-title">Контакти</h2>
+          <p class="section-kicker">
+            Оберіть зручний спосіб зв'язку — я відповім особисто.
+          </p>
+          <ul class="contact-links">
+            <li><a href="https://t.me/[username]" target="_blank" rel="noopener">✈️ Telegram: @[username]</a></li>
+            <li><a href="mailto:[email@example.com]">✉️ [email@example.com]</a></li>
+             <!--<li><a href="https://instagram.com/[username]" target="_blank" rel="noopener">📷 Instagram: @[username]</a></li>-->
+          </ul>
+        </div>
+
+        <div class="col-main">
+          <!--
+            ФОРМА через Formspree (безкоштовно, без сервера — підходить для GitHub Pages).
+            1) Зареєструйтеся на https://formspree.io
+            2) Створіть форму і скопіюйте її ID
+            3) Замініть YOUR_FORM_ID нижче
+          -->
+          <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+            <div class="field">
+              <label for="name">Ваше ім'я або нікнейм</label>
+              <input type="text" id="name" name="name" required placeholder="Як до вас звертатися?" />
+            </div>
+            <div class="field">
+              <label for="email">Email або Telegram для відповіді</label>
+              <input type="text" id="email" name="contact" required placeholder="email або @username" />
+            </div>
+            <div class="field">
+              <label for="message">Повідомлення</label>
+              <textarea id="message" name="message" rows="4" required placeholder="Коротко про те, що вас турбує або з чим хочете звернутися"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Надіслати</button>
+            <p class="form-note">
+              Натискаючи «Надіслати», ви погоджуєтесь, що я зв'яжуся з вами у відповідь.
+              Ваші дані не передаються третім особам.
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FAQ ===================== -->
+    <section id="faq" class="section section-faq">
+      <div class="container narrow">
+        <h2 class="section-title center">Поширені запитання</h2>
+        <div class="faq-list">
+          <details>
+            <summary>Чи це конфіденційно?</summary>
+            <p>Так. Усе, що відбувається на консультації чи у групі, залишається між нами.
+              Конфіденційність — основа нашої роботи.</p>
+          </details>
+          <details>
+            <summary>Як проходить консультація?</summary>
+            <p>Онлайн у Zoom, триває 50–60 хвилин. Ми спілкуємося у комфортному для вас
+              темпі, без тиску й «правильних» відповідей.</p>
+          </details>
+          <details>
+            <summary>Скільки коштує консультація?</summary>
+            <p>[Вкажіть вартість або «за запитом». За потреби — інформація про першу
+              ознайомчу зустріч.]</p>
+          </details>
+          <details>
+            <summary>Чим група БезПерсон відрізняється від особистої терапії?</summary>
+            <p>Група — це безкоштовний простір підтримки та спільноти. Вона не замінює
+              індивідуальну психотерапію чи медичну допомогу.</p>
+          </details>
+          <details>
+            <summary>Чи обов'язково вмикати камеру в групі?</summary>
+            <p>Ні. Ви самі обираєте нікнейм, а камеру й мікрофон вмикаєте лише за власним
+              бажанням.</p>
+          </details>
+          <details>
+            <summary>Якою мовою проходять зустрічі?</summary>
+            <p>Українською.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== ПІДВАЛ ===================== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p class="footer-brand">Рімма</p>
+        <p class="footer-sub">Психологиня · Авторка проєкту БезПерсон</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="index.html">Головна</a>
+        <a href="about.html">Про мене</a>
+        <a href="bezperson.html">БезПерсон</a>
+        <a href="contact.html">Контакти</a>
+      </nav>
+      <p class="footer-copy">© <span id="year"></span> BezPerson. Усі права захищені.</p>
+    </div>
+  </footer>
+
+  <script src="script.js?v=2"></script>
+</body>
+</html>
