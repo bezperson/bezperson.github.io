@@ -136,3 +136,115 @@ document.querySelectorAll('.contact-form, .ask-form').forEach((form) => {
     }
   });
 });
+
+// 6) Автоматичний розклад зустрічей із Google Таблиці (CSV)
+(function () {
+  const grid = document.getElementById('scheduleGrid');
+  if (!grid) return;
+  const src = grid.getAttribute('data-src');
+  if (!src) return;
+
+  const DAYS = ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+  const MONTHS = ['січ.', 'лют.', 'бер.', 'квіт.', 'трав.', 'черв.',
+                  'лип.', 'серп.', 'вер.', 'жовт.', 'лист.', 'груд.'];
+  const MAX = 6;
+
+  function parseCSV(text) {
+    const rows = [];
+    let field = '', row = [], inQ = false;
+    for (let i = 0; i < text.length; i++) {
+      const c = text[i];
+      if (inQ) {
+        if (c === '"') { if (text[i + 1] === '"') { field += '"'; i++; } else inQ = false; }
+        else field += c;
+      } else if (c === '"') inQ = true;
+      else if (c === ',') { row.push(field); field = ''; }
+      else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+      else if (c !== '\r') field += c;
+    }
+    if (field.length || row.length) { row.push(field); rows.push(row); }
+    return rows;
+  }
+
+  function showEmpty(msg) {
+    grid.innerHTML = '';
+    const p = document.createElement('p');
+    p.className = 'schedule-empty';
+    p.textContent = msg;
+    grid.appendChild(p);
+  }
+
+  function buildCard(ev) {
+    const d = new Date(ev.дата + 'T' + (ev.час || '00:00'));
+    const isQA = (ev.формат || '').trim().toLowerCase() === 'qa';
+
+    const card = document.createElement('article');
+    card.className = 'schedule-card';
+
+    const date = document.createElement('div');
+    date.className = 'schedule-date';
+    const day = document.createElement('span');
+    day.className = 'schedule-day'; day.textContent = DAYS[d.getDay()];
+    const num = document.createElement('span');
+    num.className = 'schedule-num'; num.textContent = d.getDate();
+    const mon = document.createElement('span');
+    mon.className = 'schedule-month'; mon.textContent = MONTHS[d.getMonth()];
+    date.append(day, num, mon);
+
+    const info = document.createElement('div');
+    info.className = 'schedule-info';
+    const tag = document.createElement('span');
+    tag.className = 'schedule-tag' + (isQA ? ' schedule-tag-alt' : '');
+    tag.textContent = isQA ? '💬 Q&A — ваші запитання' : '🌿 Тематичне заняття';
+    const h3 = document.createElement('h3');
+    h3.textContent = ev.тема || (isQA ? 'Відповіді на запитання учасників' : 'Тематичне заняття');
+    const meta = document.createElement('p');
+    meta.className = 'schedule-meta';
+    meta.textContent = '⏰ ' + (ev.час || '') + ' · 40 хв · Zoom';
+    info.append(tag, h3, meta);
+
+    card.append(date, info);
+
+    const link = (ev.посилання || '').trim();
+    if (/^https?:\/\//i.test(link)) {
+      const a = document.createElement('a');
+      a.className = 'btn btn-ghost';
+      a.href = link; a.target = '_blank'; a.rel = 'noopener';
+      a.textContent = 'Долучитися';
+      card.appendChild(a);
+    } else {
+      const span = document.createElement('span');
+      span.className = 'schedule-soon';
+      span.textContent = 'Посилання згодом';
+      card.appendChild(span);
+    }
+    return card;
+  }
+
+  fetch(src)
+    .then((r) => { if (!r.ok) throw new Error('fetch'); return r.text(); })
+    .then((text) => {
+      const rows = parseCSV(text).filter((r) => r.some((c) => c.trim() !== ''));
+      if (rows.length < 2) { showEmpty('Найближчі зустрічі зʼявляться тут незабаром. Актуальний розклад — у нашій Telegram-спільноті.'); return; }
+      const headers = rows[0].map((h) => h.trim());
+      const now = new Date();
+      const events = rows.slice(1).map((r) => {
+        const o = {};
+        headers.forEach((h, i) => { o[h] = (r[i] || '').trim(); });
+        return o;
+      })
+      .filter((o) => {
+        if (!o.дата) return false;
+        const end = new Date(o.дата + 'T23:59');
+        return !isNaN(end) && end >= now;
+      })
+      .sort((a, b) => new Date(a.дата + 'T' + (a.час || '00:00')) - new Date(b.дата + 'T' + (b.час || '00:00')))
+      .slice(0, MAX);
+
+      if (!events.length) { showEmpty('Найближчі зустрічі зʼявляться тут незабаром. Актуальний розклад — у нашій Telegram-спільноті.'); return; }
+
+      grid.innerHTML = '';
+      events.forEach((ev) => grid.appendChild(buildCard(ev)));
+    })
+    .catch(() => showEmpty('Не вдалося завантажити розклад. Актуальні зустрічі — у нашій Telegram-спільноті.'));
+})();

@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css?v=5" />
+  <link rel="stylesheet" href="styles.css?v=6" />
 </head>
 <body>
 
@@ -133,49 +133,15 @@
           та Q&A. Долучайтеся до зручної для вас.
         </p>
 
-        <div class="schedule-grid">
-          <!-- Повторюйте/редагуйте картки під свій розклад -->
-          <article class="schedule-card">
-            <div class="schedule-date">
-              <span class="schedule-day">Сб</span>
-              <span class="schedule-num">[9]</span>
-              <span class="schedule-month">[лист.]</span>
-            </div>
-            <div class="schedule-info">
-              <span class="schedule-tag">🌿 Тематичне заняття</span>
-              <h3>[Тема зустрічі]</h3>
-              <p class="schedule-meta">⏰ [19:00] · 40 хв · Zoom</p>
-            </div>
-            <a href="[ПОСИЛАННЯ]" class="btn btn-ghost">Долучитися</a>
-          </article>
-
-          <article class="schedule-card">
-            <div class="schedule-date">
-              <span class="schedule-day">Нд</span>
-              <span class="schedule-num">[10]</span>
-              <span class="schedule-month">[лист.]</span>
-            </div>
-            <div class="schedule-info">
-              <span class="schedule-tag schedule-tag-alt">💬 Q&A — ваші запитання</span>
-              <h3>Відповіді на запитання учасників</h3>
-              <p class="schedule-meta">⏰ [19:00] · 40 хв · Zoom</p>
-            </div>
-            <a href="[ПОСИЛАННЯ]" class="btn btn-ghost">Долучитися</a>
-          </article>
-
-          <article class="schedule-card">
-            <div class="schedule-date">
-              <span class="schedule-day">Сб</span>
-              <span class="schedule-num">[16]</span>
-              <span class="schedule-month">[лист.]</span>
-            </div>
-            <div class="schedule-info">
-              <span class="schedule-tag">🌿 Тематичне заняття</span>
-              <h3>[Тема зустрічі]</h3>
-              <p class="schedule-meta">⏰ [19:00] · 40 хв · Zoom</p>
-            </div>
-            <a href="[ПОСИЛАННЯ]" class="btn btn-ghost">Долучитися</a>
-          </article>
+        <!--
+          Розклад підтягується автоматично з Google Таблиці (колонки:
+          дата,час,формат,тема,посилання). Щоб оновити — редагуйте таблицю,
+          сайт чіпати не треба. Мінулі зустрічі ховаються самі.
+          Адреса таблиці — в атрибуті data-src нижче (опублікований CSV).
+        -->
+        <div class="schedule-grid" id="scheduleGrid"
+             data-src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ3gWA6eihJZ61R41_1ybkXb1zznbcxuADK2Lj-2ShcP2eoq0cqbqWBKrufFCj6wmA4RY5s9ddLHKUR/pub?gid=0&single=true&output=csv">
+          <p class="schedule-empty">Завантажуємо розклад…</p>
         </div>
         <p class="note center">
           Актуальний розклад і теми ми публікуємо у Telegram-спільноті.
@@ -235,6 +201,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=5"></script>
+  <script src="script.js?v=6"></script>
 </body>
 </html>

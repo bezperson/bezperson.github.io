@@ -628,3 +628,14 @@ img { max-width: 100%; display: block; }
   .booking-embed { border-radius: 14px; }
   .booking-embed iframe { min-height: 560px; }
 }
+
+/* Порожній/службовий стан розкладу */
+.schedule-empty,
+.schedule-soon { color: var(--muted); }
+.schedule-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 16px;
+}
+.schedule-soon { font-size: 14px; font-weight: 600; white-space: nowrap; }
