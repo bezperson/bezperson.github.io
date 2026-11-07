@@ -37,3 +37,51 @@ document.querySelectorAll('.section').forEach((el) => {
   el.classList.add('reveal');
   observer.observe(el);
 });
+
+// 4) Дихальна вправа (коробкове дихання 4-4-4-4, цикл = 16 с)
+(function () {
+  const circle = document.getElementById('breatheCircle');
+  const phase = document.getElementById('breathePhase');
+  const btn = document.getElementById('breatheBtn');
+  if (!circle || !phase || !btn) return;
+
+  // 4 фази по 4 секунди, синхронно з @keyframes breathe
+  const phases = [
+    { label: 'Вдих…', duration: 4000 },
+    { label: 'Затримка', duration: 4000 },
+    { label: 'Видих…', duration: 4000 },
+    { label: 'Пауза', duration: 4000 },
+  ];
+
+  let running = false;
+  let idx = 0;
+  let timer = null;
+
+  function step() {
+    phase.textContent = phases[idx].label;
+    timer = setTimeout(() => {
+      idx = (idx + 1) % phases.length;
+      step();
+    }, phases[idx].duration);
+  }
+
+  function start() {
+    running = true;
+    idx = 0;
+    circle.classList.add('is-breathing');
+    btn.textContent = 'Зупинити';
+    btn.setAttribute('aria-pressed', 'true');
+    step();
+  }
+
+  function stop() {
+    running = false;
+    clearTimeout(timer);
+    circle.classList.remove('is-breathing');
+    phase.textContent = 'Гарна робота 🤍';
+    btn.textContent = 'Почати';
+    btn.setAttribute('aria-pressed', 'false');
+  }
+
+  btn.addEventListener('click', () => (running ? stop() : start()));
+})();
