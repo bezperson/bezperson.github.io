@@ -88,3 +88,54 @@ document.querySelectorAll('.section').forEach((el) => {
 
   btn.addEventListener('click', () => (running ? stop() : start()));
 })();
+
+// 5) Надсилання форм без переходу на нову сторінку (AJAX через FormSubmit)
+function showFormStatus(form, message, ok) {
+  let el = form.querySelector('.form-status');
+  if (!el) {
+    el = document.createElement('p');
+    el.className = 'form-status';
+    el.setAttribute('role', 'status');
+    el.setAttribute('aria-live', 'polite');
+    form.appendChild(el);
+  }
+  el.textContent = message;
+  el.classList.remove('is-ok', 'is-error');
+  el.classList.add(ok ? 'is-ok' : 'is-error');
+}
+
+document.querySelectorAll('.contact-form, .ask-form').forEach((form) => {
+  form.addEventListener('submit', async (e) => {
+    const action = form.getAttribute('action') || '';
+    // Лишаємо стандартну поведінку, якщо це не FormSubmit (напр. заглушка)
+    if (!action.includes('formsubmit.co') || action.includes('[')) return;
+
+    e.preventDefault();
+
+    const btn = form.querySelector('button[type="submit"]');
+    const originalText = btn ? btn.textContent : '';
+    if (btn) { btn.disabled = true; btn.textContent = 'Надсилаємо…'; }
+
+    // AJAX-ендпойнт FormSubmit (повертає JSON замість переходу на сторінку)
+    const endpoint = action.replace('formsubmit.co/', 'formsubmit.co/ajax/');
+
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(form),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && (data.success === 'true' || data.success === true)) {
+        showFormStatus(form, '✅ Дякую! Ваше повідомлення надіслано.', true);
+        form.reset();
+      } else {
+        showFormStatus(form, '⚠️ Не вдалося надіслати. Спробуйте ще раз або напишіть у Telegram.', false);
+      }
+    } catch (err) {
+      showFormStatus(form, '⚠️ Немає зʼєднання. Спробуйте, будь ласка, трохи пізніше.', false);
+    } finally {
+      if (btn) { btn.disabled = false; btn.textContent = originalText; }
+    }
+  });
+});
