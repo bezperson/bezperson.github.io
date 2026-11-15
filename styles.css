@@ -184,7 +184,7 @@ img { max-width: 100%; display: block; }
 .facts strong { font-family: var(--serif); color: var(--ink); }
 .facts span { color: var(--muted); font-size: 15px; }
 
-.section-about { background: var(--white); }
+.section-about { background: var(--cream); }
 
 /* ---------- Картки ---------- */
 .cards { display: grid; gap: 24px; }
