@@ -281,8 +281,8 @@ img { max-width: 100%; display: block; }
   transition: transform .2s ease, box-shadow .2s ease;
 }
 .cert-item:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
-.cert-item img { border-radius: 10px; aspect-ratio: 3 / 4; object-fit: cover; width: 100%; background: var(--white); }
-.cert-caption { font-size: 14px; color: var(--ink-soft); font-weight: 600; text-align: left; }
+.cert-item img { border-radius: 10px; aspect-ratio: 3 / 4; object-fit: cover; object-position: left center; width: 100%; background: var(--white); }
+.cert-caption { font-size: 14px; color: var(--ink-soft); font-weight: 600; text-align: center; }
 
 /* ---------- Відгуки ---------- */
 .section-testimonials { background: var(--cream); }
