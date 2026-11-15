@@ -639,3 +639,39 @@ img { max-width: 100%; display: block; }
   font-size: 16px;
 }
 .schedule-soon { font-size: 14px; font-weight: 600; white-space: nowrap; }
+
+/* ===================== ПЕРЕЛІК ПІДВИЩЕНЬ КВАЛІФІКАЦІЇ ===================== */
+.cert-courses { max-width: 920px; margin: 50px auto 0; }
+.cert-courses-title {
+  font-family: var(--serif);
+  font-size: 23px;
+  text-align: center;
+  color: var(--ink);
+  margin: 0 0 6px;
+}
+.cert-courses-sub { text-align: center; color: var(--muted); margin: 0 0 24px; }
+.cert-course-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 36px;
+}
+.cert-course-list li { position: relative; padding-left: 22px; }
+.cert-course-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--terracotta);
+}
+.cert-course-name { display: block; font-weight: 600; color: var(--ink); line-height: 1.35; }
+.cert-course-meta { display: block; font-size: 13px; color: var(--muted); margin-top: 3px; }
+@media (max-width: 680px) {
+  .cert-courses { margin-top: 38px; }
+  .cert-course-list { grid-template-columns: 1fr; gap: 15px; }
+}
