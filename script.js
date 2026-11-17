@@ -148,6 +148,7 @@ document.querySelectorAll('.contact-form, .ask-form').forEach((form) => {
   const MONTHS = ['січ.', 'лют.', 'бер.', 'квіт.', 'трав.', 'черв.',
                   'лип.', 'серп.', 'вер.', 'жовт.', 'лист.', 'груд.'];
   const MAX = 6;
+  const DURATION_MIN = 40; // Тривалість зустрічі у хвилинах
 
   function parseCSV(text) {
     const rows = [];
@@ -174,43 +175,51 @@ document.querySelectorAll('.contact-form, .ask-form').forEach((form) => {
     grid.appendChild(p);
   }
 
-  function buildCard(ev) {
-    const d = new Date(ev.дата + 'T' + (ev.час || '00:00'));
+  function buildCard(ev, now) {
+    const start = new Date(ev.дата + 'T' + (ev.час || '00:00'));
+    const end = new Date(start.getTime() + DURATION_MIN * 60000);
+    const isLive = now >= start && now < end;
     const isQA = (ev.формат || '').trim().toLowerCase() === 'qa';
 
     const card = document.createElement('article');
-    card.className = 'schedule-card';
+    card.className = 'schedule-card' + (isLive ? ' schedule-card-live' : '');
 
     const date = document.createElement('div');
     date.className = 'schedule-date';
     const day = document.createElement('span');
-    day.className = 'schedule-day'; day.textContent = DAYS[d.getDay()];
+    day.className = 'schedule-day'; day.textContent = DAYS[start.getDay()];
     const num = document.createElement('span');
-    num.className = 'schedule-num'; num.textContent = d.getDate();
+    num.className = 'schedule-num'; num.textContent = start.getDate();
     const mon = document.createElement('span');
-    mon.className = 'schedule-month'; mon.textContent = MONTHS[d.getMonth()];
+    mon.className = 'schedule-month'; mon.textContent = MONTHS[start.getMonth()];
     date.append(day, num, mon);
 
     const info = document.createElement('div');
     info.className = 'schedule-info';
     const tag = document.createElement('span');
     tag.className = 'schedule-tag' + (isQA ? ' schedule-tag-alt' : '');
-    tag.textContent = isQA ? '💬 Q&A — ваші запитання' : '🌿 Тематичне зустрічі';
+    tag.textContent = isQA ? '💬 Q&A — ваші запитання' : '🌿 Тематична зустріч';
     const h3 = document.createElement('h3');
-    h3.textContent = ev.тема || (isQA ? 'Відповіді на запитання учасників' : 'Тематичне зустрічі');
+    h3.textContent = ev.тема || (isQA ? 'Відповіді на запитання учасників' : 'Тематична зустріч');
     const meta = document.createElement('p');
-    meta.className = 'schedule-meta';
-    meta.textContent = '⏰ ' + (ev.час || '') + ' · 40 хв · Zoom';
-    info.append(tag, h3, meta);
+    meta.className = 'schedule-meta' + (isLive ? ' schedule-meta-live' : '');
 
+    if (isLive) {
+      const minsLeft = Math.max(1, Math.ceil((end - now) / 60000));
+      meta.textContent = ' Зараз триває · ще ' + minsLeft + ' хв · Zoom';
+    } else {
+      meta.textContent = '⏰ ' + (ev.час || '') + ' · ' + DURATION_MIN + ' хв · Zoom';
+    }
+
+    info.append(tag, h3, meta);
     card.append(date, info);
 
     const link = (ev.посилання || '').trim();
     if (/^https?:\/\//i.test(link)) {
       const a = document.createElement('a');
-      a.className = 'btn btn-ghost';
+      a.className = 'btn ' + (isLive ? 'btn-primary' : 'btn-ghost');
       a.href = link; a.target = '_blank'; a.rel = 'noopener';
-      a.textContent = 'Долучитися';
+      a.textContent = isLive ? 'Долучитися зараз' : 'Долучитися';
       card.appendChild(a);
     } else {
       const span = document.createElement('span');
@@ -221,30 +230,47 @@ document.querySelectorAll('.contact-form, .ask-form').forEach((form) => {
     return card;
   }
 
-  fetch(src)
-    .then((r) => { if (!r.ok) throw new Error('fetch'); return r.text(); })
-    .then((text) => {
-      const rows = parseCSV(text).filter((r) => r.some((c) => c.trim() !== ''));
-      if (rows.length < 2) { showEmpty('Найближчі зустрічі зʼявляться тут незабаром. Актуальний розклад — у нашій Telegram-спільноті.'); return; }
-      const headers = rows[0].map((h) => h.trim());
-      const now = new Date();
-      const events = rows.slice(1).map((r) => {
-        const o = {};
-        headers.forEach((h, i) => { o[h] = (r[i] || '').trim(); });
-        return o;
-      })
+  let allParsedEvents = [];
+
+  function renderSchedule() {
+    const now = new Date();
+    const activeEvents = allParsedEvents
       .filter((o) => {
-        if (!o.дата) return false;
-        const end = new Date(o.дата + 'T23:59');
-        return !isNaN(end) && end >= now;
+        const start = new Date(o.дата + 'T' + (o.час || '00:00'));
+        const end = new Date(start.getTime() + DURATION_MIN * 60000);
+        return end > now;
       })
       .sort((a, b) => new Date(a.дата + 'T' + (a.час || '00:00')) - new Date(b.дата + 'T' + (b.час || '00:00')))
       .slice(0, MAX);
 
-      if (!events.length) { showEmpty('Найближчі зустрічі зʼявляться тут незабаром. Актуальний розклад — у нашій Telegram-спільноті.'); return; }
+    if (!activeEvents.length) {
+      showEmpty('Найближчі зустрічі зʼявляться тут незабаром. Актуальний розклад — у нашій Telegram-спільноті.');
+      return;
+    }
 
-      grid.innerHTML = '';
-      events.forEach((ev) => grid.appendChild(buildCard(ev)));
+    grid.innerHTML = '';
+    activeEvents.forEach((ev) => grid.appendChild(buildCard(ev, now)));
+  }
+
+  fetch(src)
+    .then((r) => { if (!r.ok) throw new Error('fetch'); return r.text(); })
+    .then((text) => {
+      const rows = parseCSV(text).filter((r) => r.some((c) => c.trim() !== ''));
+      if (rows.length < 2) {
+        showEmpty('Найближчі зустрічі зʼявляться тут незабаром. Актуальний розклад — у нашій Telegram-спільноті.');
+        return;
+      }
+      const headers = rows[0].map((h) => h.trim());
+      allParsedEvents = rows.slice(1)
+        .map((r) => {
+          const o = {};
+          headers.forEach((h, i) => { o[h] = (r[i] || '').trim(); });
+          return o;
+        })
+        .filter((o) => o.дата && !isNaN(new Date(o.дата + 'T' + (o.час || '00:00'))));
+
+      renderSchedule();
+      setInterval(renderSchedule, 60000); // Оновлення статусу та лічильника щохвилини
     })
     .catch(() => showEmpty('Не вдалося завантажити розклад. Актуальні зустрічі — у нашій Telegram-спільноті.'));
 })();
