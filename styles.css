@@ -431,20 +431,10 @@ img { max-width: 100%; display: block; }
 
 /* ---------- Контакт ---------- */
 .section-contact { background: linear-gradient(160deg, var(--cream-2), var(--sand)); }
-.contact-links { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 14px; }
-.contact-links a { font-size: 17px; font-weight: 600; color: var(--ink); }
-.contact-links a:hover { color: var(--terracotta-dark); }
 .contact-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 26px; }
 .contact-actions .btn { background: rgba(255, 255, 255, 0.6); }
 .contact-actions .btn:hover { background: var(--white); }
 
-.contact-form {
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  padding: 34px;
-  box-shadow: var(--shadow-md);
-}
 .field { margin-bottom: 18px; }
 .field label { display: block; font-weight: 700; font-size: 14px; margin-bottom: 7px; color: var(--ink); }
 .field input, .field textarea {
@@ -686,7 +676,7 @@ img { max-width: 100%; display: block; }
   /* Трохи щільніші відступи в картках */
   .card { padding: 24px 22px; }
   .service-card { padding: 28px 22px; }
-  .contact-form, .ask-form { padding: 24px 20px; }
+  .ask-form { padding: 24px 20px; }
   .rules-list li { padding: 16px 18px; }
   .faq-list details { padding: 2px 20px; }
 

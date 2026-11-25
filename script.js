@@ -104,7 +104,7 @@ function showFormStatus(form, message, ok) {
   el.classList.add(ok ? 'is-ok' : 'is-error');
 }
 
-document.querySelectorAll('.contact-form, .ask-form').forEach((form) => {
+document.querySelectorAll('.ask-form').forEach((form) => {
   form.addEventListener('submit', async (e) => {
     const action = form.getAttribute('action') || '';
     // Обробляємо лише Google Форми; інше лишаємо на стандартну поведінку
@@ -124,10 +124,7 @@ document.querySelectorAll('.contact-form, .ask-form').forEach((form) => {
         mode: 'no-cors',
         body: new FormData(form),
       });
-      const okMsg = form.classList.contains('ask-form')
-        ? 'Дякуємо за ваше запитання 🤍 Ми дбайливо розберемо його на одній із найближчих зустрічей.'
-        : 'Дякую, що наважилися написати 💛 Я прочитаю ваше повідомлення й відповім якомога швидше.';
-      showFormStatus(form, okMsg, true);
+      showFormStatus(form, 'Дякуємо за ваше запитання 🤍 Ми дбайливо розберемо його на одній із найближчих зустрічей.', true);
       form.reset();
     } catch (err) {
       showFormStatus(form, '⚠️ Немає зʼєднання. Спробуйте, будь ласка, трохи пізніше.', false);
