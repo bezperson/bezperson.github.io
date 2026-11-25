@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Контакти — записатися до психологині Рімми</title>
-  <meta name="description" content="Записатися на індивідуальну консультацію до психологині Рімми. Telegram, email та форма зворотного зв'язку. Поширені запитання." />
+  <meta name="description" content="Записатися на індивідуальну консультацію до психологині Рімми. Онлайн-запис на вихідні, Telegram та email." />
 
   <meta property="og:title" content="Контакти — записатися до психологині Рімми" />
-  <meta property="og:description" content="Записатися на консультацію: Telegram, email, форма зв'язку." />
+  <meta property="og:description" content="Записатися на консультацію онлайн або написати в Telegram чи на email." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="assets/og-image.jpg" />
 
@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css?v=10" />
+  <link rel="stylesheet" href="styles.css?v=15" />
 </head>
 <body>
 
@@ -55,77 +55,118 @@
     <!-- ===================== ЗАПИС НА КОНСУЛЬТАЦІЮ ===================== -->
     <section id="booking" class="section section-booking">
       <div class="container">
-        <p class="eyebrow center">Запис онлайн</p>
-        <h2 class="section-title center">Оберіть зручний час</h2>
-        <p class="section-lead center">
-          Виберіть вільний слот у календарі — після запису ви отримаєте підтвердження
-          з посиланням на зустріч. Якщо зручніше спершу поставити запитання —
-          напишіть мені у формі нижче.
-        </p>
+        <!--
+          ЗАПИС НА КОНСУЛЬТАЦІЮ (без Google Календаря).
+          • Вільний час: правила у script.js (розділ 7, BOOKING_RULES) — вихідні, фіксовані години.
+          • Зайняті слоти: опублікований CSV вкладки «busy» Google-таблиці → data-busy-src.
+          • Запис надсилається у приховану Google-форму: action + name="entry.XXXXX".
+          Як налаштувати — див. BOOKING-SETUP.md.
+        -->
+        <div class="booking" id="bookingWizard"
+             data-busy-src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSLvzUr6ZMdcrMBk_9wRnjuA3sUY8bQiqWHym2xtH8rAG-RSPm-Hyxxm_2ZCUYWfGNE1yMXPvJcg5x1/pub?gid=672801365&single=true&output=csv">
 
-        <div class="booking-embed">
-          <!-- Google Calendar Appointment Scheduling -->
-          <iframe
-            src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1slR8lKe7bRzQHl7OuePwb4q7yxPWHPh4qNjnKCCncMbTGetJYChIh3nOpsaHHkqXjP_4AXoTC?gv=true&hl=uk"
-            title="Запис на індивідуальну консультацію"
-            style="border: 0"
-            width="100%"
-            height="650"
-            frameborder="0"
-            loading="lazy"></iframe>
+          <ol class="booking-steps" aria-label="Етапи запису">
+            <li class="is-active"><span class="booking-step-num">01</span> Дата і час</li>
+            <li class="booking-step-line" aria-hidden="true"></li>
+            <li><span class="booking-step-num">02</span> Ваші дані</li>
+            <li class="booking-step-line" aria-hidden="true"></li>
+            <li><span class="booking-step-num">03</span> Готово</li>
+          </ol>
+
+          <h2 class="booking-title">Оберіть зручний час для зустрічі</h2>
+          <p class="booking-lead">
+            Консультації онлайн, 50 хвилин, у суботу та неділю. Після запису я напишу вам,
+            щоб підтвердити зустріч.
+          </p>
+
+          <form class="booking-form"
+                action="https://docs.google.com/forms/d/e/1FAIpQLSd8_oDA7srp-MYm-wnUNbpWE_foU2So6mkZ0SY3XDj8VAbcRw/formResponse"
+                method="POST" novalidate>
+
+            <!-- Приховані поля: заповнюються скриптом -->
+            <input type="hidden" name="entry.263105239" data-booking="slot" />
+            <input type="hidden" name="entry.831449461" data-booking="method" />
+
+            <div class="booking-flow">
+              <!-- ДАТА І ЧАС -->
+              <div class="booking-block booking-block-date">
+                <div class="booking-cal">
+                  <div class="booking-cal-head">
+                    <button type="button" class="booking-cal-nav" data-cal="prev" aria-label="Попередній місяць">←</button>
+                    <p class="booking-cal-month" aria-live="polite"></p>
+                    <button type="button" class="booking-cal-nav" data-cal="next" aria-label="Наступний місяць">→</button>
+                  </div>
+                  <div class="booking-cal-dows" aria-hidden="true">
+                    <span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Нд</span>
+                  </div>
+                  <div class="booking-cal-grid"></div>
+                </div>
+
+                <div class="booking-times" aria-live="polite"></div>
+              </div>
+
+              <!-- ВАШІ ДАНІ -->
+              <div class="booking-block booking-block-details" hidden>
+                <p class="booking-summary" aria-live="polite"></p>
+
+                <div class="booking-fields">
+                  <div class="field">
+                    <label for="bkName">Ім'я</label>
+                    <input type="text" id="bkName" name="entry.1322819686" required autocomplete="given-name" placeholder="Як до вас звертатися?" />
+                  </div>
+                  <div class="field">
+                    <span class="field-label" id="bkMethodLabel">Як з вами зв'язатися</span>
+                    <div class="booking-methods" role="radiogroup" aria-labelledby="bkMethodLabel">
+                      <button type="button" class="booking-method is-active" role="radio" aria-checked="true" data-method="Telegram">Telegram</button>
+                      <button type="button" class="booking-method" role="radio" aria-checked="false" data-method="Телефон">Телефон</button>
+                      <button type="button" class="booking-method" role="radio" aria-checked="false" data-method="Instagram">Instagram</button>
+                      <button type="button" class="booking-method" role="radio" aria-checked="false" data-method="Email">Email</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="bkContact">Telegram</label>
+                  <input type="text" id="bkContact" name="entry.1367201549" required placeholder="@username" />
+                </div>
+                <div class="field">
+                  <label for="bkComment">Коментар (необов'язково)</label>
+                  <textarea id="bkComment" name="entry.1358243250" rows="3" placeholder="Наприклад, у який час вам зручніше, щоб я написала"></textarea>
+                </div>
+                <p class="booking-error" role="alert" hidden></p>
+                <button type="submit" class="btn btn-primary btn-block booking-submit">Записатися</button>
+                <p class="form-note">
+                  Натискаючи «Записатися», ви погоджуєтесь, що я зв'яжуся з вами обраним способом.
+                </p>
+              </div>
+            </div>
+
+            <!-- ГОТОВО -->
+            <div class="booking-done" hidden>
+              <p class="booking-done-icon" aria-hidden="true">🌿</p>
+              <h3 class="booking-done-title">Дякую, ви записані</h3>
+              <p class="booking-done-when"></p>
+              <p>
+                Протягом доби я напишу вам <span data-done-method>у Telegram</span>, щоб підтвердити
+                зустріч і розповісти про деталі.
+              </p>
+              <p class="note">Якщо плани зміняться — просто напишіть мені, і ми знайдемо інший час.</p>
+            </div>
+          </form>
         </div>
-
-        <p class="note center">
-          💛 Після запису я напишу вам щодо деталей та оплати (передоплата).
-        </p>
       </div>
     </section>
 
-    <!-- ===================== КОНТАКТ ===================== -->
+    <!-- ===================== ЗАПИТАННЯ ПЕРЕД ЗАПИСОМ ===================== -->
     <section id="contact" class="section section-contact">
-      <div class="container two-col">
-        <div class="col-side">
-          <h2 class="section-title">Або просто напишіть</h2>
-          <p class="section-kicker">
-            Ще не готові обирати час? Напишіть мені зручним способом — я відповім особисто.
-          </p>
-          <ul class="contact-links">
-            <li><a href="https://t.me/bezperson" target="_blank" rel="noopener">✈️ Telegram</a></li>
-            <li><a href="mailto:bezperson.space+contact@gmail.com">✉️ Email</a></li>
-             <!--<li><a href="https://instagram.com/[username]" target="_blank" rel="noopener">📷 Instagram: @[username]</a></li>-->
-          </ul>
-        </div>
-
-        <div class="col-main">
-          <!--
-            ФОРМА через Google Форми. Дані надсилаються у приховану Google-форму
-            й зберігаються у вашій Google-таблиці (ваш власний акаунт, без сторонніх сервісів).
-            Поля input/textarea мають name="entry.XXXXX" — це ID полів Google-форми.
-            Щоб під'єднати іншу форму: створіть її й замініть action + entry.XXXXX
-            (ID полів беруться з коду форми viewform).
-          -->
-          <form class="contact-form"
-                action="https://docs.google.com/forms/d/e/1FAIpQLSdKSkQNKRELGkvWAn1lOIGp48pFB-Fa8pmV_NgMHeIX7UeohQ/formResponse"
-                method="POST">
-            <div class="field">
-              <label for="name">Ваше ім'я або нікнейм</label>
-              <input type="text" id="name" name="entry.569134283" required placeholder="Як до вас звертатися?" />
-            </div>
-            <div class="field">
-              <label for="email">Email або Telegram для відповіді</label>
-              <input type="text" id="email" name="entry.430281915" required placeholder="email або @username" />
-            </div>
-            <div class="field">
-              <label for="message">Повідомлення</label>
-              <textarea id="message" name="entry.1695113286" rows="4" required placeholder="Коротко про те, що вас турбує або з чим хочете звернутися"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Надіслати</button>
-            <p class="form-note">
-              Натискаючи «Надіслати», ви погоджуєтесь, що я зв'яжуся з вами у відповідь.
-              Повідомлення надходить через Google Форми й зберігається лише в моєму
-              Google-акаунті — я використовую його тільки щоб відповісти вам.
-            </p>
-          </form>
+      <div class="container narrow center">
+        <h2 class="section-title">Маєте запитання перед записом?</h2>
+        <p class="section-kicker">
+          Хочете спершу щось уточнити або не впевнені, з чого почати, — напишіть мені.
+          Я відповім особисто.
+        </p>
+        <div class="contact-actions">
+          <a class="btn btn-ghost" href="https://t.me/bezperson" target="_blank" rel="noopener">✈️ Написати в Telegram</a>
+          <a class="btn btn-ghost" href="mailto:bezperson.space+contact@gmail.com">✉️ Написати на email</a>
         </div>
       </div>
     </section>
@@ -148,6 +189,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=6"></script>
+  <script src="script.js?v=12"></script>
 </body>
 </html>
